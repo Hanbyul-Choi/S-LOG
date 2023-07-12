@@ -21,7 +21,19 @@ const PostListContainer = () => {
     dispatch(__listPosts({ tag, username, page }));
   }, [dispatch, searchParams, username]);
 
-  return <PostList loading={loading} error={error} posts={posts} showWriteButton={user} />;
+  if (loading) return null;
+
+  // 최신순 필터링 TODO: 좋아요 기능 탑재 시 인기순 정렬도 해야함.
+  let sort = "publishedDate";
+  // let sortedPosts = JSON.parse(JSON.stringify(posts));
+  let sortedPosts = JSON.parse(JSON.stringify(posts));
+  // if (sortWay === "like") sort = "likeCount";
+  // else if (sortWay === "time") sort = "date";
+  if (posts) {
+    sortedPosts.sort((a, b) => b[sort] - a[sort]);
+  }
+
+  return <PostList loading={loading} error={error} posts={sortedPosts} showWriteButton={user} />;
 };
 
 export default PostListContainer;
