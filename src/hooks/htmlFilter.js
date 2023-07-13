@@ -15,4 +15,8 @@ export const sanitizeOption = {
     li: ["class"],
   },
   allowedSchemes: ["data", "http"],
+  transformTags: {
+    "<": "&lt;",
+    ">": "&gt;",
+  },
 };

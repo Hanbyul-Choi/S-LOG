@@ -22,7 +22,6 @@ const PostActionButtonsContainer = () => {
   let newBody = body;
   if (newBody) {
     newBody = sanitizeHtml(newBody, sanitizeOption);
-    console.log(body, "_____________________________________", newBody);
   }
 
   const onPublish = () => {
