@@ -49,7 +49,6 @@ const authSlice = createSlice({
       ...state,
       [form]: initialState[form],
       authError: null,
-      auth: null,
     }),
     changeField: (state, { payload: { form, key, value } }) => ({
       ...state,

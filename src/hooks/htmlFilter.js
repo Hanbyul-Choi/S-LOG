@@ -16,7 +16,9 @@ export const sanitizeOption = {
   },
   allowedSchemes: ["data", "http"],
   transformTags: {
-    "<": "&lt;",
-    ">": "&gt;",
+    // "<": "&lt;",
+    // ">": "&gt;",
+    "&lt;": "<",
+    "&gt;": ">",
   },
 };
