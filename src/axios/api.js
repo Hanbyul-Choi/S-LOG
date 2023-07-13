@@ -1,7 +1,11 @@
 import axios from "axios";
 
-const instanse = axios.create({
+const dbInstanse = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
+});
+
+const userInstanse = axios.create({
+  baseURL: process.env.REACT_APP_AUTH_SERVER_URL,
 });
 
 // instanse.interceptors.request.use(
@@ -26,4 +30,4 @@ const instanse = axios.create({
 //   }
 // );
 
-export default instanse;
+export { userInstanse, dbInstanse };

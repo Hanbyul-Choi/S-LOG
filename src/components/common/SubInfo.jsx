@@ -8,7 +8,7 @@ const SubInfo = ({ username, publishedDate, has_margin_top }) => {
     <SubInfoBlock has_margin_top="true">
       <span>
         <b>
-          <Link to={`/${username}`}>{username}</Link>
+          <Link to={`/posts/${username}`}>{username}</Link>
         </b>
       </span>
       <span>{new Date(publishedDate).toLocaleString()}</span>

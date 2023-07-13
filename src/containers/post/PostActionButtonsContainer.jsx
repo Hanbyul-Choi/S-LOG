@@ -10,13 +10,13 @@ import sanitizeHtml from "sanitize-html";
 const PostActionButtonsContainer = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { title, body, tags, error, post, username, originalPostId } = useSelector(({ post, user }) => ({
+  const { title, body, tags, error, post, user, originalPostId } = useSelector(({ post, user }) => ({
     title: post.title,
     body: post.body,
     tags: post.tags,
     error: post.error,
     post: post.post,
-    username: user.user.username,
+    user: user.user,
     originalPostId: post.originalPostId,
   }));
   let newBody = body;
@@ -36,7 +36,7 @@ const PostActionButtonsContainer = () => {
           body,
           tags,
         },
-        username,
+        username: user.username,
         id: uuidv4(),
         publishedDate: Date.now(),
       })

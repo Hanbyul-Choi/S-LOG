@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { check } from "../../axios/auth";
-import { getCookie } from "../../hooks/setCookie";
+import { deleteCookie, getCookie } from "../../hooks/setCookie";
 
 const initialState = {
   user: null,
   checkError: null,
   isLoading: false,
+  logout: null,
 };
 
 export const __check = createAsyncThunk("check", async (payload, thunkAPI) => {
@@ -18,8 +19,6 @@ export const __check = createAsyncThunk("check", async (payload, thunkAPI) => {
     await check(token);
     return thunkAPI.fulfillWithValue(payload);
   } catch (error) {
-    console.log(error);
-    alert(error.response.data.message);
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
 });
@@ -27,6 +26,7 @@ export const __check = createAsyncThunk("check", async (payload, thunkAPI) => {
 export const __logout = createAsyncThunk("logout", async (payload, thunkAPI) => {
   try {
     localStorage.removeItem("user");
+    deleteCookie("accessToken");
     return thunkAPI.fulfillWithValue(payload);
   } catch (error) {
     console.log(error);
@@ -47,6 +47,7 @@ const userSlice = createSlice({
     [__check.pending]: (state) => ({
       ...state,
       isLoading: true,
+      checkError: null,
     }),
     [__check.fulfilled]: (state, { payload: user }) => ({
       ...state,
@@ -54,10 +55,10 @@ const userSlice = createSlice({
       checkError: null,
       isLoading: false,
     }),
-    [__check.rejected]: (state, { payload: error }) => ({
+    [__check.rejected]: (state, { payload: checkError }) => ({
       ...state,
       user: null,
-      checkError: error,
+      checkError,
       isLoading: false,
     }),
     [__logout.pending]: (state) => ({
@@ -68,6 +69,7 @@ const userSlice = createSlice({
       ...state,
       user: null,
       isLoading: false,
+      logout: true,
     }),
     [__logout.rejected]: (state, error) => ({
       ...state,
