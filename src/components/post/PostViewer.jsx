@@ -4,6 +4,7 @@ import palette from "../../lib/styles/palette";
 import Responsive from "../common/Responsive";
 import SubInfo from "../common/SubInfo";
 import Tags from "../common/Tags";
+import { Helmet } from "react-helmet-async";
 
 const PostViewer = ({ post, error, loading, HandleButtons }) => {
   if (error) {
@@ -22,6 +23,9 @@ const PostViewer = ({ post, error, loading, HandleButtons }) => {
 
   return (
     <PostViewerBlock>
+      <Helmet>
+        <title>{title} S-log</title>
+      </Helmet>
       <PostHead>
         <h1>{title}</h1>
         <SubInfo username={username} publishedDate={publishedDate} has_margin_top="true" />
