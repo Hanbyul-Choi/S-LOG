@@ -80,6 +80,7 @@ const postSlice = createSlice({
     [__readPost.fulfilled]: (state, { payload: post }) => ({
       ...state,
       post,
+      originalPostId: null,
       isLoading: false,
     }),
     [__readPost.rejected]: (state, action) => {
