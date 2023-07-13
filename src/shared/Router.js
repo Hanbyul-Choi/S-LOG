@@ -5,10 +5,14 @@ import PostView from "../pages/PostView";
 import PostListPage from "../pages/PostList";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import { Helmet } from "react-helmet-async";
 
 function Router() {
   return (
     <BrowserRouter>
+      <Helmet>
+        <title>S-log</title>
+      </Helmet>
       <Routes>
         <Route path="/" element={<PostListPage />} />
         <Route path="/post" element={<Post />} />
