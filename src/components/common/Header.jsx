@@ -3,8 +3,23 @@ import { styled } from "styled-components";
 import Responsive from "./Responsive";
 import Button from "./Button";
 import { Link } from "react-router-dom";
+import { createPortal } from "react-dom";
+import { useState } from "react";
+import AskLogoutModal from "../auth/AskLogoutModal";
 
 function Header({ user, onLogout }) {
+  const [modal, setModal] = useState(false);
+  const onLogoutClick = () => {
+    setModal(true);
+  };
+  const onCancel = () => {
+    setModal(false);
+  };
+
+  const onConfirm = () => {
+    setModal(false);
+    onLogout();
+  };
   return (
     <>
       <HeaderBlock>
@@ -15,7 +30,7 @@ function Header({ user, onLogout }) {
           {user ? (
             <div className="right">
               <UserInfo>{user.username}</UserInfo>
-              <Button onClick={onLogout}>로그아웃</Button>
+              <Button onClick={onLogoutClick}>로그아웃</Button>
             </div>
           ) : (
             <div className="right">
@@ -25,6 +40,10 @@ function Header({ user, onLogout }) {
         </Wrapper>
       </HeaderBlock>
       <Spacer />
+      {createPortal(
+        <AskLogoutModal visible={modal} onConfirm={onConfirm} onCancel={onCancel} />,
+        document.getElementById("portal-target")
+      )}
     </>
   );
 }
@@ -34,6 +53,7 @@ const HeaderBlock = styled.div`
   width: 100%;
   background-color: #ffffff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  z-index: 1;
 `;
 
 const Wrapper = styled(Responsive)`

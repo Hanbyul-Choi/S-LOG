@@ -4,6 +4,7 @@ import Header from "./Header";
 import { __check, __logout } from "../../redux/modules/user";
 import { initializeForm } from "../../redux/modules/auth";
 import { useNavigate } from "react-router";
+import { setCookie } from "../../hooks/setCookie";
 
 const HeaderContainer = () => {
   const { user, checkError, logout } = useSelector(({ user }) => ({
@@ -19,8 +20,9 @@ const HeaderContainer = () => {
     dispatch(initializeForm("login"));
   };
   if (checkError) {
-    alert(checkError);
+    alert("로그인이 만료되었습니다.");
     dispatch(__logout());
+    setCookie("accessToken", null, 0);
     dispatch(initializeForm("login"));
     if (logout) {
       navigate("/login");

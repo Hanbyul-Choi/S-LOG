@@ -20,10 +20,16 @@ const PostActionButtonsContainer = () => {
     originalPostId: post.originalPostId,
   }));
   let newBody = body;
+  let disabled = false;
   if (newBody) {
     newBody = sanitizeHtml(newBody, sanitizeOption);
   }
-
+  if (title.trim() === "" || body.trim() === "<p><br></p>") {
+    disabled = true;
+  } else {
+    disabled = false;
+  }
+  console.log("입력", body);
   const onPublish = () => {
     if (originalPostId) {
       dispatch(__updatePost({ title, body, tags, id: originalPostId }));
@@ -57,7 +63,7 @@ const PostActionButtonsContainer = () => {
     }
   }, [navigate, post, error]);
 
-  return <PostActionButtons onPublish={onPublish} onCancel={onCancel} isEdit={!!originalPostId} />;
+  return <PostActionButtons onPublish={onPublish} onCancel={onCancel} isEdit={!!originalPostId} disabled={disabled} />;
 };
 
 export default PostActionButtonsContainer;
