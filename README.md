@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# S-LOG
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 위즈윅 에디터 기반으로 작성 가능한 블로그
 
-## Available Scripts
+## 목차
 
-In the project directory, you can run:
+- [1. 프로젝트 소개](#1-프로젝트-소개)
+- [2. API Table](#2-api-table)
+- [3. 구현기능](#3-구현-기능)
+- [4. 트러블](#4-issue)
 
-### `yarn start`
+## 1. 프로젝트 소개
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 프로젝트 제목 : S-LOG
+- 프로젝트 간단 설명 : 리액트, 리덕스Thunk 기반으로 제작한 블로그 플랫폼
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 2. API Table
 
-### `yarn test`
+| 이름                  | URL          | Method | request                                                      | params             |
+| :-------------------- | :----------- | :----- | :----------------------------------------------------------- | :----------------- |
+| 게시글 목록 전체 조회 | `/posts`     | GET    |                                                              |                    |
+| 게시글 상세 조회      | `/posts/:id` | GET    |                                                              | {'user',`postId``} |
+| 게시글 작성           | `/posts`     | POST   | {'post':{title,body,tags:[]},'username','id','publishedDate} |                    |
+| 게시글 수정           | `/posts/:id` | PATCH  | {'post':{ title,body,tags:[] } }                             |                    |
+| 게시글 삭제           | `/posts/:id` | DELETE | {'postId'}                                                   | {postId}           |
+| 회원가입              | `/register`  | POST   | {’id’:id,'password':password}                                |                    |
+| 로그인                | `/login`     | POST   | {’id’:id,'password':password}                                |                    |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 3. 구현기능
 
-### `yarn build`
+### 로그인 / 회원가입
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- JWT 토큰 활용하여 유저 체킹 및 새로고침 시 로그인 유지
+- 토큰 유효기간 60분 만료 시 로그아웃 기능 구현
+- 로그인 시 로그인/회원가입 페이지 접근 차단
+- 로그아웃 시 게시글 작성 페이지 접근 차단
+- 비로그인 시 게시물은 볼 수 있으며 해당페이지에서 로그인 시 기존 페이지로 이동
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 게시글 CRUD
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 포스팅 관련 CRUD 모두 구현
+- 게시글 내용 작성 시 위지윅 에디터(Quill)로 작성 가능
+- 게시글의 작성자 이름 클릭 시 해당 작성자 게시글만 조회 가능
 
-### `yarn eject`
+### Not Found
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- 잘못된 경로 입력 시 Not Found페이지 이동 후 2.5초 뒤 홈으로 이동.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 4. issue
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 1. Redux Store State Initial
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- 게시글 수정완료 혹은 취소 후 새 게시글 작성시 마지막으로 수정했던 게시글에 덮어 씌워지는 문제
+- 위 내용관련해서 글 작성 시 등록버튼이 수정버튼으로 보이는 문제
+- 로그아웃 후 로그인시 로그인 과정없이 바로 로그인 되는 문제
+- 로그인 시 오류 발생 후 재로그인이 안되는 문제
 
-## Learn More
+> 해당 문제들 모두 dispatch하여 state를 변경하는 과정에서 extraReducer에서 state를 초기화 시켜주지 않아 발생.<br>
+> 오류 발생 후 해당 오류 state를 null초기화 및 기능 수행 중 취소 시 state초기화 시키는 것으로 해결 완료.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 2. JWT 토큰 60분 만료 시 발생하는 에러를 핸들링
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- 60분 만료 시 어느 페이지에 있던지 체킹을 하고 알려주어야 하는데 모든 페이지에서 검사하기에는 비효율적임.
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> 공통이 되는 헤더 컴포넌트에서 유저 체크를 진행.<br>
+> 헤더가 리렌더링 될 때마다 서버와 통신하여 토큰을 체크진행.<br>
+> 오류 발생 시 핸들링하여 사용자에게 알림을 띄우고 로그인 페이지로 이동.
