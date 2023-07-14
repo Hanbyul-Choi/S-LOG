@@ -51,7 +51,7 @@ const LoginFormContainer = () => {
   useEffect(() => {
     if (user) {
       try {
-        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("user", JSON.stringify({ username: user.username }));
       } catch (error) {
         console.log("cookie is not working");
       }

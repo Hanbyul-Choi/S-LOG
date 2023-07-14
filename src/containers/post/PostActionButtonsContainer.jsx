@@ -50,7 +50,7 @@ const PostActionButtonsContainer = () => {
   useEffect(() => {
     if (post) {
       const { id, username } = post;
-      navigate(`/${username}/${id}`);
+      navigate(`/posts/${username}/${id}`);
     }
     if (error) {
       console.log(error);
