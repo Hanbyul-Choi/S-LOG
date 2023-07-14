@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# S-LOG
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 위즈윅 에디터 기반으로 작성 가능한 블로그
 
-## Available Scripts
+## 목차
 
-In the project directory, you can run:
+- [1. 프로젝트 소개](#1-프로젝트-소개)
+- [2. API Table](#7-api-table)
+- [3. 구현기능](#8-구현-기능)
+- [4. 트러블](#8-issue)
 
-### `yarn start`
+## 1. 프로젝트 소개
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 프로젝트 제목 :
+  - S-LOG
+- 프로젝트 간단 설명 :
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 2. API Table
 
-### `yarn test`
+| 이름                  | URL       | Method | request                                                         | prams                   |
+| :-------------------- | :-------- | :----- | :-------------------------------------------------------------- | :---------------------- |
+| 게시글 목록 전체 조회 | /post     | GET    |                                                                 |                         |
+| 게시글 상세 조회      | /post/:id | GET    |                                                                 | {'contentId':contentId} |
+| 게시글 작성           | /post     | POST   | {'title’:title,’content’:content}                               |                         |
+| 게시글 수정           | /post/:id | PATCH  | {'title’:editTitle,’content’:editContent,’contentId’:contentId} |                         |
+| 게시글 삭제           | /post/:id | DELETE | {’contentId’:contentId}                                         |                         |
+| 회원가입              | /register | POST   | {’id’:id,'password':password}                                   |                         |
+| 로그인                | /login    | POST   | {’id’:id,'password':password}                                   |                         |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 3. 구현기능
 
-### `yarn build`
+-
+-
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 4. issue
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> 1. 새로고침하면 쿠키는 살아있지만 로그아웃됨
+> 2. 수정했을 때 인풋값 바로 안바뀌는 현상
