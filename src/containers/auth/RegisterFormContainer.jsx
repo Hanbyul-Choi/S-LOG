@@ -5,6 +5,7 @@ import AuthForm from "../../components/auth/AuthForm";
 import { initializeForm } from "../../redux/modules/auth";
 import { __check } from "../../redux/modules/user";
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
 const RegisterFormContainer = () => {
   const dispatch = useDispatch();
@@ -48,7 +49,14 @@ const RegisterFormContainer = () => {
     dispatch(initializeForm("register"));
   }, [dispatch, auth]);
 
+  const ignorefirst = useRef(false);
+
   useEffect(() => {
+    if (!ignorefirst.current) {
+      ignorefirst.current = true;
+      return;
+    }
+
     if (authError) {
       if (authError.response.status === 401) {
         setError("이미 존재하는 계정입니다.");
@@ -66,7 +74,7 @@ const RegisterFormContainer = () => {
   useEffect(() => {
     if (user) {
       try {
-        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("user", JSON.stringify({ username: user.username }));
         navigate("/");
       } catch (error) {
         console.log("cookie is not working");

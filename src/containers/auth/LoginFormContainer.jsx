@@ -40,12 +40,10 @@ const LoginFormContainer = () => {
 
   useEffect(() => {
     if (authError) {
-      console.log("오류발생");
       console.log(authError);
       return;
     }
     if (auth) {
-      console.log("로그인 성공");
       dispatch(__check(auth));
     }
   }, [auth, authError, dispatch]);
@@ -53,10 +51,11 @@ const LoginFormContainer = () => {
   useEffect(() => {
     if (user) {
       try {
-        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("user", JSON.stringify({ username: user.username }));
       } catch (error) {
         console.log("cookie is not working");
       }
+      navigate(-1);
       navigate("/");
     }
   }, [navigate, user]);

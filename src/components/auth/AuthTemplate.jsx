@@ -8,7 +8,9 @@ const AuthTemplate = ({ children }) => {
     <AuthTemplateBlock>
       <WhiteBox>
         <div className="logo-area">
-          <Link to="/">S-LOG</Link>
+          <Link to="/">
+            <u>S-LOG</u>
+          </Link>
         </div>
         {children}
       </WhiteBox>
@@ -35,6 +37,7 @@ const WhiteBox = styled.div`
     display: block;
     padding-bottom: 2rem;
     text-align: center;
+    font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: 2px;
   }

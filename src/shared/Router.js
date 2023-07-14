@@ -6,6 +6,7 @@ import PostListPage from "../pages/PostList";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import { Helmet } from "react-helmet-async";
+import NotFound from "../pages/NotFound";
 
 function Router() {
   return (
@@ -18,8 +19,9 @@ function Router() {
         <Route path="/post" element={<Post />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/:username" element={<PostListPage />} />
-        <Route path="/:username/:postId" element={<PostView />} />
+        <Route path="/posts/:username" element={<PostListPage />} />
+        <Route path="/posts/:username/:postId" element={<PostView />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

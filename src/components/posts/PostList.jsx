@@ -16,7 +16,7 @@ const PostItem = ({ post }) => {
   return (
     <PostItemBlock>
       <h2>
-        <Link to={`/${username}/${id}`}>{title}</Link>
+        <Link to={`/posts/${username}/${id}`}>{title}</Link>
       </h2>
       <SubInfo username={username} publishedDate={publishedDate} has_margin_top="true" />
       <Tags tags={tags} />
